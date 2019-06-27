@@ -5,7 +5,7 @@ import axios from 'axios'
 import Home from "./components/Home"
 import Trinkets from "./components/Trinkets"
 import Trinket from "./components/Trinket"
-import data from "./data"
+import Create from "./components/Create"
 import "./styles.css"
 
 class App extends React.Component {
@@ -36,12 +36,14 @@ class App extends React.Component {
 					<div className="nav-links">
 						<Link to="/">Home</Link>
 						<Link to="/trinkets">Trinkets</Link>
+						<Link to="/new">Create</Link>
 					</div>
 				</nav>
 
 				<Route path="/" exact render={(props) => <Home {...props} items={items} />} />
 				<Route path="/trinkets" exact render={(props) => <Trinkets {...props} items={items} />} />
 				<Route path="/trinket/:id" render={(props) => <Trinket {...props} items={items} />} />
+				<Route path="/new" exact render={(props) => <Create {...props} /> } />
 			</div>
 		)
 	}
