@@ -6,6 +6,7 @@ import Home from "./components/Home"
 import Trinkets from "./components/Trinkets"
 import Trinket from "./components/Trinket"
 import Create from "./components/Create"
+import Edit from "./components/Edit"
 import "./styles.css"
 
 class App extends React.Component {
@@ -26,6 +27,12 @@ class App extends React.Component {
 			});
 	}
 
+	updateItems = (items) => {
+		this.setState({
+			items: items
+		})
+	}
+
 	render() {
 		const { items } = this.state
 		
@@ -43,7 +50,8 @@ class App extends React.Component {
 				<Route path="/" exact render={(props) => <Home {...props} items={items} />} />
 				<Route path="/trinkets" exact render={(props) => <Trinkets {...props} items={items} />} />
 				<Route path="/trinket/:id" render={(props) => <Trinket {...props} items={items} />} />
-				<Route path="/new" exact render={(props) => <Create {...props} /> } />
+				<Route path="/new" exact render={(props) => <Create {...props} updateItems={this.updateItems} /> } />
+				<Route path="/edit/:id" exact render={(props) => <Edit {...props} updateItems={this.updateItems} /> } />
 			</div>
 		)
 	}

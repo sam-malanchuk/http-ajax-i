@@ -7,7 +7,8 @@ class Create extends React.Component {
         price: '',
         imageUrl: 'https://picsum.photos/500',
         description: '',
-        shipping: ''
+        shipping: '',
+        errorMessage: null
     }
 
     handleChange = (event) => {
@@ -24,20 +25,29 @@ class Create extends React.Component {
 
         axios.post("http://localhost:3333/items", payload)
             .then((response) => {
-                console.log(response)
+                this.props.updateItems(response.data)
+                this.setState({
+                    errorMessage: null
+                })
+                this.props.history.push("/trinkets")
             })
             .catch((err) => {
-                console.log(err)
+                // console.log(err)
+                this.setState({
+                    errorMessage: err.response.data.error
+                })
             })
     }
 
     render() {
-        const { name, price, imageUrl, description, shipping } = this.state;
+        const { name, price, imageUrl, description, shipping, errorMessage } = this.state;
         // const name = this.state.name;
 
         return (
             <form onSubmit={this.createItem}>
                 <h1>Create New Trinket</h1>
+
+                <p>{errorMessage}</p>
 
                 <input type="text" name="name" value={name} onChange={this.handleChange} placeholder="Name" />
                 <input type="number" name="price" value={price} onChange={this.handleChange} placeholder="Price" />
